@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+    <h2>Quizzes</h2>
+    <div style="display:flex; gap: 20px;">
+        <div style="flex:1;">
+            <h3>Generate New Quiz</h3>
+            <form id="quizForm">
+                <input type="text" id="subject" placeholder="Subject" class="form-control" style="margin-bottom:10px;">
+                <input type="text" id="topic" placeholder="Topic" class="form-control" style="margin-bottom:10px;">
+                <button type="submit" class="btn btn-primary">Start Quiz</button>
+            </form>
+        </div>
+        <div style="flex:1;">
+            <h3>Past Attempts</h3>
+            <ul>
+                {% for attempt in attempts %}
+                <li>{{ attempt.subject }} - {{ attempt.topic }}: {{ attempt.score }}/{{ attempt.total }}</li>
+                {% else %}
+                <li>No attempts yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

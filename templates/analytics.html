@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+    <h2>Progress Analytics</h2>
+    <p>Your recent quiz scores:</p>
+    <ul>
+        {% for q in quizzes %}
+        <li>{{ q.topic }}: {{ q.score }}/{{ q.total }}</li>
+        {% else %}
+        <li>No quizzes taken yet.</li>
+        {% endfor %}
+    </ul>
+    
+    <h3 style="margin-top:20px;">Study Planner</h3>
+    <ul>
+        {% for t in tasks %}
+        <li>{{ t.title }} - {{ 'Completed' if t.is_completed else 'Pending' }}</li>
+        {% else %}
+        <li>No tasks scheduled.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

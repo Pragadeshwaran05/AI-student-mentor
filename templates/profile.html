@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="section-card">
+        <div class="section-header">
+            <h2>Your Profile</h2>
+        </div>
+        
+        <form method="POST" action="{{ url_for('dashboard.profile') }}" class="profile-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}" disabled>
+                    <small>Email cannot be changed.</small>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="college">College/University</label>
+                    <input type="text" id="college" name="college" value="{{ user.college }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" name="department" value="{{ user.department }}" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="year">Year of Study</label>
+                    <select id="year" name="year" required>
+                        <option value="1" {% if user.year == '1' %}selected{% endif %}>1st Year</option>
+                        <option value="2" {% if user.year == '2' %}selected{% endif %}>2nd Year</option>
+                        <option value="3" {% if user.year == '3' %}selected{% endif %}>3rd Year</option>
+                        <option value="4" {% if user.year == '4' %}selected{% endif %}>4th Year</option>
+                        <option value="grad" {% if user.year == 'grad' %}selected{% endif %}>Graduate</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="learning_style">Preferred Learning Style</label>
+                    <select id="learning_style" name="learning_style" required>
+                        <option value="visual" {% if user.learning_style == 'visual' %}selected{% endif %}>Visual (Images/Diagrams)</option>
+                        <option value="reading" {% if user.learning_style == 'reading' %}selected{% endif %}>Reading/Writing</option>
+                        <option value="practice" {% if user.learning_style == 'practice' %}selected{% endif %}>Practice (Hands-on)</option>
+                        <option value="interactive" {% if user.learning_style == 'interactive' %}selected{% endif %}>Interactive</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

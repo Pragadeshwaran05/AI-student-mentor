@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+    <h2>Study Planner</h2>
+    <form id="taskForm" style="margin-bottom: 20px;">
+        <input type="text" id="title" placeholder="Task Title" required>
+        <input type="text" id="topic" placeholder="Topic" required>
+        <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+        <li>{{ task.title }} ({{ task.topic }}) - {{ "Done" if task.is_completed else "Pending" }}</li>
+        {% else %}
+        <li>No tasks scheduled.</li>
+        {% endfor %}
+    </ul>
+</div>
+<script>
+document.getElementById('taskForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    formData.append('topic', document.getElementById('topic').value);
+    await fetch('/api/planner/add', { method: 'POST', body: formData });
+    window.location.reload();
+};
+</script>
+{% endblock %}

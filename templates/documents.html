@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+    <h2>Your Documents</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="docFile" name="file" accept=".pdf,.txt,.docx" required>
+        <button type="submit" class="btn btn-primary">Upload to AI</button>
+    </form>
+    <div id="uploadStatus"></div>
+    <ul style="margin-top:20px;">
+        {% for doc in documents %}
+        <li><i class="fas fa-file-pdf"></i> {{ doc.filename }} - Ready for chat</li>
+        {% else %}
+        <li>No documents uploaded yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+<script>
+document.getElementById('uploadForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    document.getElementById('uploadStatus').innerText = "Uploading to Gemini...";
+    
+    try {
+        const res = await fetch('/api/upload_document', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await res.json();
+        if(res.ok) {
+            window.location.reload();
+        } else {
+            document.getElementById('uploadStatus').innerText = "Error: " + data.error;
+        }
+    } catch(err) {
+        document.getElementById('uploadStatus').innerText = "Network error";
+    }
+};
+</script>
+{% endblock %}

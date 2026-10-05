@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block public_content %}
+<div class="landing-page">
+    <header class="landing-header">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i> AI Student Mentor
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline">Login</a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Register</a>
+        </div>
+    </header>
+    
+    <main class="landing-main">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Your Personalized AI Academic Mentor</h1>
+                <p>Master any subject with an AI tutor that adapts to your learning style. Ask questions, take quizzes, and track your progress through interactive text and voice conversations.</p>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-large">Start Learning Now</a>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-robot hero-icon"></i>
+            </div>
+        </div>
+        
+        <div class="features-section">
+            <h2>Why Choose AI Student Mentor?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>Personalized Learning</h3>
+                    <p>The AI adapts explanations based on whether you are a visual, reading, or practical learner.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-comments feature-icon"></i>
+                    <h3>Text & Voice Mentor</h3>
+                    <p>Interact naturally using text chat or speak directly to your mentor for on-the-go learning.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clipboard-check feature-icon"></i>
+                    <h3>Smart Quizzes</h3>
+                    <p>Test your knowledge with automatically generated quizzes tailored to what you've just learned.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-upload feature-icon"></i>
+                    <h3>Document Analysis</h3>
+                    <p>Upload your syllabus or lecture notes and the AI will teach you directly from your materials.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Student Mentor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-graduation-cap"></i> AI Mentor</h2>
+                <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('dashboard.index') }}" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="{{ url_for('chat.index') }}" class="nav-item"><i class="fas fa-robot"></i> AI Mentor</a>
+                <a href="{{ url_for('learning.documents') }}" class="nav-item"><i class="fas fa-file-alt"></i> Documents</a>
+                <a href="{{ url_for('quizzes.index') }}" class="nav-item"><i class="fas fa-tasks"></i> Quizzes</a>
+                <a href="{{ url_for('planner.index') }}" class="nav-item"><i class="fas fa-calendar-alt"></i> Study Planner</a>
+                <a href="{{ url_for('learning.analytics') }}" class="nav-item"><i class="fas fa-chart-line"></i> Progress</a>
+                <a href="{{ url_for('dashboard.profile') }}" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <button class="menu-btn" id="openSidebar"><i class="fas fa-bars"></i></button>
+                <div class="user-info">
+                    <span>{{ current_user.full_name }}</span>
+                    <div class="avatar">{{ current_user.full_name[0] }}</div>
+                </div>
+            </header>
+            
+            <div class="content-wrapper">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+        
+        <!-- Overlay for mobile sidebar -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    </div>
+    {% else %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block public_content %}{% endblock %}
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
